@@ -2,8 +2,8 @@
 MySQL driver statement
 "
 Class {
-	#name : #MySQLDriverStatement,
-	#superclass : #Object,
+	#name : 'MySQLDriverStatement',
+	#superclass : 'Object',
 	#instVars : [
 		'driver',
 		'typeMapResults',
@@ -13,10 +13,12 @@ Class {
 		'cursoredFetch',
 		'fetchSize'
 	],
-	#category : #'MySQL-Core-Driver'
+	#category : 'MySQL-Core-Driver',
+	#package : 'MySQL-Core',
+	#tag : 'Driver'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLDriverStatement class >> onConnection: aDriver [
 	^ self new
 		driver: aDriver;
@@ -24,13 +26,13 @@ MySQLDriverStatement class >> onConnection: aDriver [
 		
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> addBinding: anObject [
 	
 	params add: (MySQLBindParameter new bindValue: anObject)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> close [
 	| cmd |
 	cmd := MySQLCommandCloseStatement onSession: driver netSession.
@@ -39,23 +41,23 @@ MySQLDriverStatement >> close [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> cursoredFetch [
 	^ cursoredFetch
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> cursoredFetch: aBoolean [ 
 	cursoredFetch := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> driver: aDriver [
 	driver := aDriver
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> execute [
 	| cmd resp |
 	resp := self resetStmt.
@@ -79,7 +81,7 @@ MySQLDriverStatement >> execute [
 	^ resp
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> fetchRows: num [
 	| cmd |
 	cmd := MySQLCommandFetch onSession: driver netSession.
@@ -91,33 +93,33 @@ MySQLDriverStatement >> fetchRows: num [
 	 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> fetchSize [
 	
 	^ fetchSize
 ]
 
-{ #category : #cursor }
+{ #category : 'cursor' }
 MySQLDriverStatement >> fetchSize: anInteger [ 
 	
 	self cursoredFetch: true.
 	fetchSize := anInteger
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 MySQLDriverStatement >> initialize [
 	params := OrderedCollection new.
 	cursoredFetch := false.
 	typeMapResults := true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> params: bindParams [
 	params := bindParams
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> resetStmt [
 	| cmd |
 	cmd := MySQLCommandResetStatement onSession: driver netSession.
@@ -126,7 +128,7 @@ MySQLDriverStatement >> resetStmt [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLDriverStatement >> sendLongData [
 	| |
 	params doWithIndex: [:aParam :indx |
@@ -136,7 +138,7 @@ MySQLDriverStatement >> sendLongData [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLDriverStatement >> sendLongParam: aParam withNum: paramNum [
 	| cmd dataStream dataPart |
 	
@@ -152,13 +154,13 @@ MySQLDriverStatement >> sendLongParam: aParam withNum: paramNum [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> stmtId: anId [
 	stmtId := anId
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverStatement >> typeMapResults: aBoolean [
 	typeMapResults := aBoolean
 	

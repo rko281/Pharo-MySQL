@@ -2,8 +2,8 @@
 Client authentication packet for MySQL
 "
 Class {
-	#name : #MySQLClientAuth,
-	#superclass : #MySQLPacket,
+	#name : 'MySQLClientAuth',
+	#superclass : 'MySQLPacket',
 	#instVars : [
 		'user',
 		'password',
@@ -14,51 +14,53 @@ Class {
 		'serverCaps',
 		'scrambleBuffMore'
 	],
-	#category : #'MySQL-Core-Packet'
+	#category : 'MySQL-Core-Packet',
+	#package : 'MySQL-Core',
+	#tag : 'Packet'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLClientAuth >> charset: csNum [
 	charset := csNum
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLClientAuth >> database: db [
 	database := db
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MySQLClientAuth >> initialize [
 	clientCaps := CapLongFlag + CapTransactions + CapLongPassword + CapConnectWithDb.
 	clientCaps := clientCaps + CapProtocol41 + CapSecureConnection.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLClientAuth >> password: pwd [
 	password := pwd.
 ]
 
-{ #category : #scrambling }
+{ #category : 'scrambling' }
 MySQLClientAuth >> scrambleBuff: buffer [
 	scrambleBuff := buffer.
 ]
 
-{ #category : #scrambling }
+{ #category : 'scrambling' }
 MySQLClientAuth >> scrambleBuffMore: more [
 	scrambleBuffMore := more
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLClientAuth >> serverCaps: caps [ 
 	serverCaps := caps
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLClientAuth >> user: userName [
 	user := userName
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 MySQLClientAuth >> write [
 	| flags scrmbl buffStream maxNetPacketLength |
 	buffStream := WriteStream on: (ByteArray new: 1024).

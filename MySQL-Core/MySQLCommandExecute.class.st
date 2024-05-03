@@ -2,18 +2,20 @@
 MySQL command to execute
 "
 Class {
-	#name : #MySQLCommandExecute,
-	#superclass : #MySQLCommandBase,
+	#name : 'MySQLCommandExecute',
+	#superclass : 'MySQLCommandBase',
 	#instVars : [
 		'stmtId',
 		'params',
 		'cursoredFetch',
 		'mapResultsToNativeTypes'
 	],
-	#category : #'MySQL-Core-Command'
+	#category : 'MySQL-Core-Command',
+	#package : 'MySQL-Core',
+	#tag : 'Command'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandExecute >> commandArg [
 	| paramType nonLongs |
 	ByteArray
@@ -48,19 +50,19 @@ MySQLCommandExecute >> commandArg [
 			^ strm contents ]
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandExecute >> commandCode [
 	^ ComStmtExecute 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandExecute >> cursoredFetch: aBoolean [ 
 	cursoredFetch := aBoolean
 	
 ]
 
-{ #category : #operating }
+{ #category : 'operating' }
 MySQLCommandExecute >> execute [
 	| resp |
 	"Remember to send long data for the longdata params before calling here"
@@ -70,19 +72,19 @@ MySQLCommandExecute >> execute [
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLCommandExecute >> gotEof [
 	^ (MySQLPacket from: session peek) isEof 
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLCommandExecute >> hasNewParamBound [
 	^ params anySatisfy: [:each | each isRebound]
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MySQLCommandExecute >> initialize [
 	super initialize.
 	cursoredFetch := false.
@@ -90,13 +92,13 @@ MySQLCommandExecute >> initialize [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandExecute >> mapResultsToNativeTypes: aBoolean [
 	mapResultsToNativeTypes := aBoolean
 	
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 MySQLCommandExecute >> nullBitMap [
 	| nullBitMap mapByte byteIndex bitMask |
 	nullBitMap := ByteArray new: (params size + 7) // 8.
@@ -114,19 +116,19 @@ MySQLCommandExecute >> nullBitMap [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandExecute >> params: inParams [
 	params := inParams
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandExecute >> readEof [
 	^ MySQLEof from: session read
 
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandExecute >> readFields [
 	| respFields field |
 	respFields := OrderedCollection new.
@@ -140,13 +142,13 @@ MySQLCommandExecute >> readFields [
 			
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandExecute >> readOneField [
 	^ MySQLField from: session read.
 
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandExecute >> readOneRow: fields [ 
 	| row |
 	row := mapResultsToNativeTypes 
@@ -157,7 +159,7 @@ MySQLCommandExecute >> readOneRow: fields [
 	^ row
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandExecute >> readResponse [
 	| resp |
 	resp := self readResult.
@@ -168,7 +170,7 @@ MySQLCommandExecute >> readResponse [
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandExecute >> readResult [
 	| resultSetHdr pkt fieldsEof rows fields rowsEof |
 	pkt := super readResponse.
@@ -191,7 +193,7 @@ MySQLCommandExecute >> readResult [
 		yourself
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandExecute >> readRowData: fields [ 
 	| respRows row |
 	respRows := OrderedCollection new.
@@ -205,13 +207,13 @@ MySQLCommandExecute >> readRowData: fields [
 
 ]
 
-{ #category : #operating }
+{ #category : 'operating' }
 MySQLCommandExecute >> resetNewParamBound [
 	params do: [:each | each resetReboundFlag]
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandExecute >> statementId: id [
 	stmtId := id
 	

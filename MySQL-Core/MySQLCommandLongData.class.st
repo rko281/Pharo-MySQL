@@ -2,17 +2,19 @@
 MySQL command for long datas
 "
 Class {
-	#name : #MySQLCommandLongData,
-	#superclass : #MySQLCommandBase,
+	#name : 'MySQLCommandLongData',
+	#superclass : 'MySQLCommandBase',
 	#instVars : [
 		'dataBytes',
 		'statementId',
 		'paramNum'
 	],
-	#category : #'MySQL-Core-Command'
+	#category : 'MySQL-Core-Command',
+	#package : 'MySQL-Core',
+	#tag : 'Command'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandLongData >> commandArg [
 	ByteArray
 		streamContents: [ :strm | 
@@ -28,32 +30,32 @@ MySQLCommandLongData >> commandArg [
 			^ strm contents ]
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandLongData >> commandCode [
 	^ ComStmtSendLongData 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandLongData >> dataBytes: aByteArray [
 	dataBytes := aByteArray 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandLongData >> paramNum: aNumber [
 	paramNum := aNumber
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandLongData >> readResponse [
 	"This command does not have any response from server"
 	^ nil
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandLongData >> statementId: anId [
 	statementId := anId
 	

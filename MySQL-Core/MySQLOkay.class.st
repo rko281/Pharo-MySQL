@@ -2,8 +2,8 @@
 MySQL Error packet
 "
 Class {
-	#name : #MySQLOkay,
-	#superclass : #MySQLResult,
+	#name : 'MySQLOkay',
+	#superclass : 'MySQLResult',
 	#instVars : [
 		'message',
 		'fieldCount',
@@ -12,21 +12,23 @@ Class {
 		'warningCount',
 		'serverStatus'
 	],
-	#category : #'MySQL-Core-Packet-Results'
+	#category : 'MySQL-Core-Packet-Results',
+	#package : 'MySQL-Core',
+	#tag : 'Packet-Results'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLOkay >> affectedRows [
 	^ affectedRows 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLOkay >> hasMoreResults [
 	^ (serverStatus bitAnd: MySQLServerStatus moreResultsExist) ~= 0
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLOkay >> inTransaction [
 	| autoCommit inTx |
 	autoCommit := (serverStatus bitAnd: MySQLServerStatus statusInTransaction) ~= 0.
@@ -35,22 +37,22 @@ MySQLOkay >> inTransaction [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLOkay >> insertId [
 	^ insertId 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLOkay >> isOkay [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLOkay >> message [
 	^ message 
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLOkay >> parse [ 
 	fieldCount := self decodeLcbFrom: inStream . "always 0"
 	affectedRows := self decodeLcbFrom: inStream .
@@ -61,12 +63,12 @@ MySQLOkay >> parse [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLOkay >> serverStatus [
 	^ serverStatus 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLOkay >> warningCount [
 	^ warningCount 
 ]

@@ -2,35 +2,37 @@
 Common superclass for MySQL binary row data
 "
 Class {
-	#name : #MySQLBinaryRowData,
-	#superclass : #MySQLRowData,
+	#name : 'MySQLBinaryRowData',
+	#superclass : 'MySQLRowData',
 	#instVars : [
 		'header',
 		'nullBitMap',
 		'columnDescriptors',
 		'columnValues'
 	],
-	#category : #'MySQL-Core-Packet-RowData'
+	#category : 'MySQL-Core-Packet-RowData',
+	#package : 'MySQL-Core',
+	#tag : 'Packet-RowData'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBinaryRowData >> atIndex: indx [
 	^ columnValues at: indx ifAbsent: [MySQLInvalidRowAccess signal: 'No data at this index']
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBinaryRowData >> columnDescriptors: fieldList [
 	columnDescriptors := fieldList 
 	
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MySQLBinaryRowData >> do: aBlock [ 
 	^columnValues do: aBlock
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLBinaryRowData >> isColumnNullAt: index [
 	| byteIndex bitsToShift bitMask |
 	byteIndex := index + 9 // 8.
@@ -42,18 +44,18 @@ MySQLBinaryRowData >> isColumnNullAt: index [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBinaryRowData >> last [
 	^ self atIndex: (columnValues size)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBinaryRowData >> nullBitMap: byteArray [ "primarily for testing"
 	nullBitMap := byteArray 
 	
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLBinaryRowData >> parse [
 	| col |
 	header := inStream next.	"always 0"
@@ -72,7 +74,7 @@ MySQLBinaryRowData >> parse [
 			put: col ]
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLBinaryRowData >> readColumnFrom: aStream perDescrption: columnDescr [
 	| reader value mask |
 

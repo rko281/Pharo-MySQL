@@ -2,22 +2,24 @@
 MySQL ping command
 "
 Class {
-	#name : #MySQLCommandPing,
-	#superclass : #MySQLCommandBase,
-	#category : #'MySQL-Core-Command'
+	#name : 'MySQLCommandPing',
+	#superclass : 'MySQLCommandBase',
+	#category : 'MySQL-Core-Command',
+	#package : 'MySQL-Core',
+	#tag : 'Command'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandPing >> commandArg [
 	^ nil
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandPing >> commandCode [
 	^ ComPing 
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandPing >> readResponse [
 	| pkt |
 

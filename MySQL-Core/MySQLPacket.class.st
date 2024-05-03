@@ -2,8 +2,8 @@
 Abtract superclass for network packet exchanged with MySQL
 "
 Class {
-	#name : #MySQLPacket,
-	#superclass : #Object,
+	#name : 'MySQLPacket',
+	#superclass : 'Object',
 	#instVars : [
 		'inStream',
 		'discriminator'
@@ -28,17 +28,19 @@ Class {
 		'CapSsl',
 		'CapTransactions'
 	],
-	#category : #'MySQL-Core-Packet'
+	#category : 'MySQL-Core-Packet',
+	#package : 'MySQL-Core',
+	#tag : 'Packet'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MySQLPacket class >> from: data [
 	^ self new 
 		read: data
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MySQLPacket class >> initCapabilititesFlags [
 	CapLongPassword := 1.
 	CapFoundRows := 1 bitShift: 1.
@@ -61,7 +63,7 @@ MySQLPacket class >> initCapabilititesFlags [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MySQLPacket class >> initialize [
 	"
 	self initialize
@@ -71,77 +73,77 @@ MySQLPacket class >> initialize [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPacket class >> maxNetPacketLength [
 	^ MySQLNetworkPacket maxLength
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLPacket >> decodeLcbFrom: byteStream [ 
 	^ MySQLHelper decodeLcbFrom: byteStream 
 	
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLPacket >> decodeLcsFrom: aStream [ 
 	^ MySQLHelper decodeLcsFrom: aStream 
 	
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLPacket >> encodeLcb: value on: aStream [ 
 	^ MySQLHelper encodeLcb: value on: aStream 
 	
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLPacket >> encodeLcs: bytes on: aStream [
 	MySQLHelper encodeLcs: bytes on: aStream
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLPacket >> isEof [
 	^ (discriminator = 16rFE) and: [inStream size < 9]
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLPacket >> isError [
 	^ discriminator = 16rFF
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLPacket >> isOkay [
 	^ discriminator = 16r00
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLPacket >> isOkayOrError [
 	^ self isOkay or: [self isError]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLPacket >> isPrepareResponse [
 	^ false
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLPacket >> isResultSet [
 	^ false
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLPacket >> parse [
 	"Default implementation; required for reading a generic (yet unknown) type of packet"
 	"No parsing here; subclasses implement packet specific parsing"
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLPacket >> read: buffer [
 	discriminator := buffer first.
 	inStream := ReadStream on: buffer.

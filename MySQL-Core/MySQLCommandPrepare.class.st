@@ -2,27 +2,29 @@
 MySQL prepare command
 "
 Class {
-	#name : #MySQLCommandPrepare,
-	#superclass : #MySQLCommandBase,
+	#name : 'MySQLCommandPrepare',
+	#superclass : 'MySQLCommandBase',
 	#instVars : [
 		'query'
 	],
-	#category : #'MySQL-Core-Command'
+	#category : 'MySQL-Core-Command',
+	#package : 'MySQL-Core',
+	#tag : 'Command'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandPrepare >> commandArg [
 	^ query 
 	
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandPrepare >> commandCode [
 	^ ComStmtPrepare 
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLCommandPrepare >> gotEof [
 	| resp |
 	resp := MySQLPacket from: session peek.
@@ -30,31 +32,31 @@ MySQLCommandPrepare >> gotEof [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandPrepare >> queryString: queryString [ 
 	query := queryString
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandPrepare >> readColumnDescr [
 	^ MySQLField from: session read.
 
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandPrepare >> readEof [
 	^ MySQLEof from: session read
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandPrepare >> readParamDescr [
 	^ MySQLField from: session read.
 
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandPrepare >> readPrepareOkay [
 	| prepOkay params columns paramEof columnEof indx |
 	
@@ -86,7 +88,7 @@ MySQLCommandPrepare >> readPrepareOkay [
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandPrepare >> readResponse [
 	| resp |
 	resp := MySQLPacket from: session peek.

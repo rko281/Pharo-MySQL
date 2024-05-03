@@ -2,28 +2,30 @@
 Binary reader for MySQL
 "
 Class {
-	#name : #MySQLBinaryReader,
-	#superclass : #Object,
+	#name : 'MySQLBinaryReader',
+	#superclass : 'Object',
 	#classInstVars : [
 		'defaultInstance'
 	],
-	#category : #'MySQL-Core-Utilities'
+	#category : 'MySQL-Core-Utilities',
+	#package : 'MySQL-Core',
+	#tag : 'Utilities'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLBinaryReader class >> default [
 	defaultInstance isNil ifTrue: [ defaultInstance := self new ].
 	^ defaultInstance
 ]
 
-{ #category : #integer }
+{ #category : 'integer' }
 MySQLBinaryReader >> bigIntFrom: aStream [
 	^ aStream next + (aStream next << 8) + (aStream next << 16) + (aStream next << 24) + 
 		(aStream next << 32) + (aStream next << 40) + (aStream next << 48) + (aStream next << 56)
 		
 ]
 
-{ #category : #time }
+{ #category : 'time' }
 MySQLBinaryReader >> dateFrom: aStream [ "ByteStream"
 	"Ref: libmysql.c >> read_binary_date"
 	| len year month day |
@@ -41,7 +43,7 @@ MySQLBinaryReader >> dateFrom: aStream [ "ByteStream"
 	
 ]
 
-{ #category : #time }
+{ #category : 'time' }
 MySQLBinaryReader >> dateTimeFrom: aStream [ "ByteStream"
 	"Ref: libmysql.c >> read_binary_datetime"
 	"length(1) + year(2) + month(1) + day(1) + hh(1) + mm(1) + ss(1) + micoSeconds(4)"
@@ -68,7 +70,7 @@ MySQLBinaryReader >> dateTimeFrom: aStream [ "ByteStream"
 		
 ]
 
-{ #category : #real }
+{ #category : 'real' }
 MySQLBinaryReader >> decimalWithScale: scale from: aStream [
 	| valueString |
 	valueString := (MySQLHelper decodeLcsFrom: aStream) asString, 's', scale asString.
@@ -76,7 +78,7 @@ MySQLBinaryReader >> decimalWithScale: scale from: aStream [
 	
 ]
 
-{ #category : #real }
+{ #category : 'real' }
 MySQLBinaryReader >> doubleFrom: aStream [
 	| num |
 	num := Float new: 2.
@@ -87,19 +89,19 @@ MySQLBinaryReader >> doubleFrom: aStream [
 
 ]
 
-{ #category : #real }
+{ #category : 'real' }
 MySQLBinaryReader >> floatFrom: aStream [
 	^ Float fromIEEE32Bit: (self longIntFrom: aStream)
 	
 ]
 
-{ #category : #integer }
+{ #category : 'integer' }
 MySQLBinaryReader >> longIntFrom: aStream [
 	^ aStream next + (aStream next << 8) + (aStream next << 16) + (aStream next << 24)
 	
 ]
 
-{ #category : #integer }
+{ #category : 'integer' }
 MySQLBinaryReader >> mediumIntFrom: aStream [
 	"int24 is sent as 4 bytes int"
 	"Ref: libmysql.c >> fetch_result_with_conversion()"
@@ -107,13 +109,13 @@ MySQLBinaryReader >> mediumIntFrom: aStream [
 	
 ]
 
-{ #category : #integer }
+{ #category : 'integer' }
 MySQLBinaryReader >> smallIntFrom: aStream [
 	^ aStream next + (aStream next << 8) 
 		
 ]
 
-{ #category : #time }
+{ #category : 'time' }
 MySQLBinaryReader >> timeFrom: aStream [ 
 	"ByteStream"
 	"length(1) + sign(1) + days(4) + hh(1) + mm(1) + ss(1) + subSeconds(4)"
@@ -148,33 +150,33 @@ MySQLBinaryReader >> timeFrom: aStream [
 		ifFalse: [ ^ timeOfDay ]
 ]
 
-{ #category : #time }
+{ #category : 'time' }
 MySQLBinaryReader >> timeStampFrom: aStream [ "ByteStream"
 	^ self dateTimeFrom: aStream.
 	
 ]
 
-{ #category : #integer }
+{ #category : 'integer' }
 MySQLBinaryReader >> tinyIntFrom: aStream [
 	^ aStream next 
 		
 ]
 
-{ #category : #blob }
+{ #category : 'blob' }
 MySQLBinaryReader >> varBlobFrom: aStream [
 	^ MySQLHelper decodeLcsFrom: aStream 
 	
 	
 ]
 
-{ #category : #string }
+{ #category : 'string' }
 MySQLBinaryReader >> varStringFrom: aStream [
 	^ (self varBlobFrom: aStream) asString 
 	
 	
 ]
 
-{ #category : #time }
+{ #category : 'time' }
 MySQLBinaryReader >> yearFrom: aStream [ "ByteStream"
 	^ self smallIntFrom: aStream	
 	

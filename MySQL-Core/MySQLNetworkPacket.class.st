@@ -2,8 +2,8 @@
 A MySQL Network packet
 "
 Class {
-	#name : #MySQLNetworkPacket,
-	#superclass : #Object,
+	#name : 'MySQLNetworkPacket',
+	#superclass : 'Object',
 	#instVars : [
 		'length',
 		'number',
@@ -12,69 +12,71 @@ Class {
 	#classVars : [
 		'MaxPacketLength'
 	],
-	#category : #'MySQL-Core-Network'
+	#category : 'MySQL-Core-Network',
+	#package : 'MySQL-Core',
+	#tag : 'Network'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 MySQLNetworkPacket class >> initialize [
  
 	MaxPacketLength := 16rFFFFFF
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkPacket class >> maxLength [
 	^ MaxPacketLength
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkPacket >> data [
 	^ data
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkPacket >> data: buffer [ "should be ByteArray"
 	data := buffer
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLNetworkPacket >> isOfMaxLength [
 	^ length = MaxPacketLength
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkPacket >> length [
 	^ length 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkPacket >> length: size [
 	length := size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkPacket >> maxLength [
 	^ MaxPacketLength
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkPacket >> number [
 	^ number
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkPacket >> number: num [
 	number := num
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLNetworkPacket >> readFrom: aStream [
 	length := aStream next + (aStream next << 8) + (aStream next << 16).
 	number := aStream next.
 	data := aStream next: length.
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 MySQLNetworkPacket >> writeTo: aStream [
 	length = data size
 		ifFalse: [ self error: 'Mismatch between packet length and data size' ].

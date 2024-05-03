@@ -2,17 +2,19 @@
 Helper class for MySQL
 "
 Class {
-	#name : #MySQLHelper,
-	#superclass : #Object,
+	#name : 'MySQLHelper',
+	#superclass : 'Object',
 	#classInstVars : [
 		'seedOne',
 		'maxValue',
 		'seedTwo'
 	],
-	#category : #'MySQL-Core-Utilities'
+	#category : 'MySQL-Core-Utilities',
+	#package : 'MySQL-Core',
+	#tag : 'Utilities'
 }
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 MySQLHelper class >> bytesFromHexString: hexString [
 	| strm bytes aByte ii high low hexAlphabet |
 	(hexString size \\ 2 = 0) ifFalse: [self error: 'Not proper hex encoding'].
@@ -33,7 +35,7 @@ MySQLHelper class >> bytesFromHexString: hexString [
 	
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 MySQLHelper class >> bytesFromSha1Hash: num [
 	| index bytes |
 	index := 0.
@@ -43,7 +45,7 @@ MySQLHelper class >> bytesFromSha1Hash: num [
 	^ bytes
 ]
 
-{ #category : #encoding }
+{ #category : 'encoding' }
 MySQLHelper class >> decodeLcbFrom: byteStream [ 
 	"parse length coded binary"
 	| first |
@@ -60,7 +62,7 @@ MySQLHelper class >> decodeLcbFrom: byteStream [
 	^ nil
 ]
 
-{ #category : #encoding }
+{ #category : 'encoding' }
 MySQLHelper class >> decodeLcsFrom: aStream [ 
 	"parses length coded string"
 	| len |
@@ -70,7 +72,7 @@ MySQLHelper class >> decodeLcsFrom: aStream [
 	
 ]
 
-{ #category : #encoding }
+{ #category : 'encoding' }
 MySQLHelper class >> encodeLcb: value on: aStream [
 	value < -1
 		ifTrue: [ self
@@ -103,7 +105,7 @@ MySQLHelper class >> encodeLcb: value on: aStream [
 		yourself
 ]
 
-{ #category : #encoding }
+{ #category : 'encoding' }
 MySQLHelper class >> encodeLcs: bytes on: aStream [
 	| len |
 	len := bytes size .
@@ -112,7 +114,7 @@ MySQLHelper class >> encodeLcs: bytes on: aStream [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLHelper class >> hash: message [
 	"Computes a hash form byte strings,
 	Returns an array of large positive integers.
@@ -152,14 +154,14 @@ MySQLHelper class >> hash: message [
 
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 MySQLHelper class >> hexStringFromBytes: aByteArray [
 	^ aByteArray inject: '' into: [:result :each | 
 		result, (each printPaddedWith: $0 to: 2 base: 16)].
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLHelper class >> myRandom [
 	seedOne := (seedOne * 3 + seedTwo) \\ maxValue.
 	seedTwo := (seedOne + seedTwo + 33) \\ maxValue.
@@ -168,7 +170,7 @@ MySQLHelper class >> myRandom [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLHelper class >> randomInitWith: seedValue1 and: seedValue2 [
 	maxValue := 16r3FFFFFFF.
 	seedOne := seedValue1 \\ maxValue.
@@ -176,7 +178,7 @@ MySQLHelper class >> randomInitWith: seedValue1 and: seedValue2 [
 
 ]
 
-{ #category : #public }
+{ #category : 'public' }
 MySQLHelper class >> scramble323: message with: password [ 
 	"Scamble the bytestring message with password."
 	"Return a srambled byte string."
@@ -210,13 +212,13 @@ MySQLHelper class >> scramble323: message with: password [
 	
 ]
 
-{ #category : #scrambling }
+{ #category : 'scrambling' }
 MySQLHelper class >> scramble323MessageLimit [
 	^ 8
 	
 ]
 
-{ #category : #scrambling }
+{ #category : 'scrambling' }
 MySQLHelper class >> secureScramble: seed with: password [ 
 
 	| sha1 hashStage1 hashStage2 hash3 reply |

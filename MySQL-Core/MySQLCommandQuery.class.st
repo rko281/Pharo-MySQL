@@ -2,42 +2,44 @@
 MySQL query command
 "
 Class {
-	#name : #MySQLCommandQuery,
-	#superclass : #MySQLCommandBase,
+	#name : 'MySQLCommandQuery',
+	#superclass : 'MySQLCommandBase',
 	#instVars : [
 		'query'
 	],
-	#category : #'MySQL-Core-Command'
+	#category : 'MySQL-Core-Command',
+	#package : 'MySQL-Core',
+	#tag : 'Command'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandQuery >> commandArg [
 	^ query 
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandQuery >> commandCode [
 	^ ComQuery 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLCommandQuery >> gotEof [
 	^ (MySQLPacket from: session peek) isEof 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandQuery >> queryString: queryString [ 
 	query := queryString
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandQuery >> readEof [
 	^ MySQLEof from: session read
 
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandQuery >> readFields [
 	| respFields field |
 	respFields := OrderedCollection new.
@@ -51,13 +53,13 @@ MySQLCommandQuery >> readFields [
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandQuery >> readOneField [
 	^ MySQLField from: session read
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandQuery >> readOneRow: fieldCount [
 	| row |
 	row := MySQLQueryRowData new.
@@ -67,7 +69,7 @@ MySQLCommandQuery >> readOneRow: fieldCount [
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandQuery >> readOneRow: fieldCount fields: fields [
 	| row |
 	row := MySQLQueryRowData new fields: fields; yourself.
@@ -77,7 +79,7 @@ MySQLCommandQuery >> readOneRow: fieldCount fields: fields [
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandQuery >> readResponse [
 	| resp |
 	resp := self readResult.
@@ -85,7 +87,7 @@ MySQLCommandQuery >> readResponse [
 	^ resp
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandQuery >> readResult [
 	| fields fieldsEof rows rowsEof resultSetHdr pkt |
 	pkt := super readResponse.
@@ -105,7 +107,7 @@ MySQLCommandQuery >> readResult [
 		yourself
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandQuery >> readRowData: fieldCount [ 
 	| respRows row |
 	respRows := OrderedCollection new.
@@ -119,7 +121,7 @@ MySQLCommandQuery >> readRowData: fieldCount [
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandQuery >> readRowData: fieldCount fields: fields [
 	| respRows row |
 	respRows := OrderedCollection new.
@@ -132,7 +134,7 @@ MySQLCommandQuery >> readRowData: fieldCount fields: fields [
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandQuery >> readRsHeader [
 	^ MySQLResultSetHeader from: session read
 	

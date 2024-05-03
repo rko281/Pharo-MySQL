@@ -2,8 +2,8 @@
 I am a simple facade on result set packets, although I behave as a MysqlPacketData. I don't perform a read or write; my clients compose me from specific rasult set packets. I am designed this way to facilitate use of similar metaphors at the connector protocol level. I also behave a multi-result type of packet.
 "
 Class {
-	#name : #MySQLResultSet,
-	#superclass : #MySQLComplexResult,
+	#name : 'MySQLResultSet',
+	#superclass : 'MySQLComplexResult',
 	#instVars : [
 		'header',
 		'fields',
@@ -13,15 +13,17 @@ Class {
 		'rowsStream',
 		'statement'
 	],
-	#category : #'MySQL-Core-Packet-Results'
+	#category : 'MySQL-Core-Packet-Results',
+	#package : 'MySQL-Core',
+	#tag : 'Packet-Results'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 MySQLResultSet >> asJSON [
 	^NeoJSONWriter toString: (self rows collect: [ :ea | ea asDictionary ])
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLResultSet >> atEnd [
 
 	"Stream/cursored behaviour"
@@ -29,27 +31,27 @@ MySQLResultSet >> atEnd [
 	^self hasMoreResults not and: [ self rowsStream atEnd ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> fields [
 	^ fields 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> fields: flds [
 	fields := flds
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> fieldsEof [
 	^ fieldsEof 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> fieldsEof: eofPkt [ 
 	fieldsEof := eofPkt
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLResultSet >> hasLastRowSent [
 	"This is signaled during cursor based fetch for the rows. Therefore we
 	check for the singal in the eof field following the rows in the response."
@@ -57,7 +59,7 @@ MySQLResultSet >> hasLastRowSent [
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLResultSet >> hasMoreResults [
 	"Looks like the flag, when set, will be set by the server in both the
 	field eof and rowdata eof packets. We are only using field eof here, since
@@ -66,28 +68,28 @@ MySQLResultSet >> hasMoreResults [
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLResultSet >> hasOpenCursor [
 	^ fieldsEof hasOpenCursor 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> header [
 	^ header
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> header: hdr [
 	header := hdr
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLResultSet >> isResultSet [
 	^ true
 ]
 
-{ #category : #cursor }
+{ #category : 'cursor' }
 MySQLResultSet >> nextRow [
 		
 	((self rows isNil or: [ self rowsStream atEnd]) and: [self hasOpenCursor and: [self hasLastRowSent not]])
@@ -96,46 +98,46 @@ MySQLResultSet >> nextRow [
 	^ self rowsStream next
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLResultSet >> parse [
 	self shouldNotImplement
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> rows [
 	^ rows
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> rows: allRows [
 	rows := allRows.
 	rowsStream := nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> rowsEof [
 	^ rowsEof 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> rowsEof: eofPkt [
 	rowsEof := eofPkt
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> rowsStream [
 
 	^rowsStream ifNil: [ rowsStream := ReadStream on: self rows ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> serverStatus [
 	^ fieldsEof serverStatus
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLResultSet >> statement: aStatement [ 
 	
 	statement := aStatement

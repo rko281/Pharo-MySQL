@@ -2,8 +2,8 @@
 Handshake packet for MySQL
 "
 Class {
-	#name : #MySQLHandshake,
-	#superclass : #MySQLPacket,
+	#name : 'MySQLHandshake',
+	#superclass : 'MySQLPacket',
 	#instVars : [
 		'protocolVer',
 		'serverVer',
@@ -14,10 +14,12 @@ Class {
 		'scrambleBuffMore',
 		'serverStatus'
 	],
-	#category : #'MySQL-Core-Packet'
+	#category : 'MySQL-Core-Packet',
+	#package : 'MySQL-Core',
+	#tag : 'Packet'
 }
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLHandshake >> parse [ 
 	protocolVer := inStream next.
 	serverVer := (inStream upTo: 0) asString.
@@ -35,7 +37,7 @@ MySQLHandshake >> parse [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLHandshake >> scrambleBuff [
 	
 	^ scrambleBuff
@@ -45,32 +47,32 @@ MySQLHandshake >> scrambleBuff [
 		ifFalse: [^ scrambleBuff]."
 ]
 
-{ #category : #scrambling }
+{ #category : 'scrambling' }
 MySQLHandshake >> scrambleBuffMore [
 	^scrambleBuffMore 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLHandshake >> serverCaps [
 	^ serverCap
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLHandshake >> serverLang [
 	^ serverLang
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLHandshake >> serverStatus [
 	^ serverStatus
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLHandshake >> serverVer [
 	^ serverVer
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLHandshake >> supportsProtocol41 [
 	^ (serverCap bitAnd: CapProtocol41) = CapProtocol41
 ]

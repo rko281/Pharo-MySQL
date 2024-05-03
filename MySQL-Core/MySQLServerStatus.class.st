@@ -2,8 +2,8 @@
 Server status for MySQL server
 "
 Class {
-	#name : #MySQLServerStatus,
-	#superclass : #Object,
+	#name : 'MySQLServerStatus',
+	#superclass : 'Object',
 	#classVars : [
 		'ServerMoreResultsExist',
 		'ServerQueryNoGoodIndexUsed',
@@ -15,10 +15,12 @@ Class {
 		'ServerStatusLastRowSent',
 		'ServerStatusNoBackslashEscapes'
 	],
-	#category : #'MySQL-Core-Utilities'
+	#category : 'MySQL-Core-Utilities',
+	#package : 'MySQL-Core',
+	#tag : 'Utilities'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLServerStatus class >> initFlags [
 	ServerStatusInTranssaction := 1. 		"transaction has started"
 	ServerStatusAutoCommit := 2. 		"in autocommit mode"
@@ -39,42 +41,42 @@ MySQLServerStatus class >> initFlags [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLServerStatus class >> initialize [
 	"self initialize"
 	self initFlags.
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLServerStatus class >> moreResultsExist [
 	^ ServerMoreResultsExist
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLServerStatus class >> statusAutoCommit [
 	^ ServerStatusAutoCommit
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLServerStatus class >> statusCursorExists [
 	^ ServerStatusCursorExists
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLServerStatus class >> statusInTransaction [
 	^ ServerStatusInTranssaction
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLServerStatus class >> statusLastRowSent [
 	^ ServerStatusLastRowSent
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLServerStatus class >> statusNoIndexUsed [
 	^ ServerQueryNoIndexUsed
 ]

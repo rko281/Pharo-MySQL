@@ -2,8 +2,8 @@
 MySQL database types
 "
 Class {
-	#name : #MySQLTypes,
-	#superclass : #Object,
+	#name : 'MySQLTypes',
+	#superclass : 'Object',
 	#classVars : [
 		'TypeBIT',
 		'TypeBLOB',
@@ -41,10 +41,12 @@ Class {
 		'stringTypes',
 		'realTypes'
 	],
-	#category : #'MySQL-Core-Utilities'
+	#category : 'MySQL-Core-Utilities',
+	#package : 'MySQL-Core',
+	#tag : 'Utilities'
 }
 
-{ #category : #'accessing - types - all' }
+{ #category : 'accessing - types - all' }
 MySQLTypes class >> blobTypes [
 	blobTypes ifNil: [
 		blobTypes := Array 
@@ -53,7 +55,7 @@ MySQLTypes class >> blobTypes [
 	
 ]
 
-{ #category : #'accessing - types - all' }
+{ #category : 'accessing - types - all' }
 MySQLTypes class >> dateTimeTypes [
 	dateTimeTypes ifNil: [
 		dateTimeTypes := Array 
@@ -64,7 +66,7 @@ MySQLTypes class >> dateTimeTypes [
 	
 ]
 
-{ #category : #'private - initialization' }
+{ #category : 'private - initialization' }
 MySQLTypes class >> initFieldTypes [
  	TypeBIT := 16.
  	TypeBLOB := 252.
@@ -97,14 +99,14 @@ MySQLTypes class >> initFieldTypes [
 
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 MySQLTypes class >> initialize [
 	"MySQLTypes initialize"
 	self initFieldTypes
 
 ]
 
-{ #category : #'accessing - types - all' }
+{ #category : 'accessing - types - all' }
 MySQLTypes class >> integerTypes [
 	integerTypes ifNil: [
 		integerTypes := Array 
@@ -114,37 +116,37 @@ MySQLTypes class >> integerTypes [
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLTypes class >> isBigInt: type [
 	^ type = TypeLONGLONG
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLTypes class >> isLongInt: type [
 	^ type = TypeLONG
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLTypes class >> isMediumInt: type [
 	^ type = TypeINT24
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLTypes class >> isSmallInt: type [
 	^ type = TypeSHORT
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLTypes class >> isTinyInt: type [
 	^ type = TypeTINY
 	
 ]
 
-{ #category : #'accessing - types - all' }
+{ #category : 'accessing - types - all' }
 MySQLTypes class >> realTypes [
 	realTypes ifNil: [
 		realTypes := Array 
@@ -153,7 +155,7 @@ MySQLTypes class >> realTypes [
 	
 ]
 
-{ #category : #'accessing - types - all' }
+{ #category : 'accessing - types - all' }
 MySQLTypes class >> stringTypes [
 	stringTypes ifNil: [
 		stringTypes := Array with: TypeSTRING with: TypeVARCHAR with: TypeVARSTRING ].
@@ -161,168 +163,168 @@ MySQLTypes class >> stringTypes [
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeBIT [
 	^ TypeBIT
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeBLOB [
 	^ TypeBLOB
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeDATE [
 	^ TypeDATE
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeDATETIME [
 	^ TypeDATETIME
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeDECIMAL [
 	^ TypeDECIMAL
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeDOUBLE [
 	^ TypeDOUBLE
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeENUM [
 	^ TypeENUM
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeFLOAT [
 	^ TypeFLOAT
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeGEOMETRY [
 	^ TypeGEOMETRY
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeINT24 [
 	^ TypeINT24
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeJSON [
 	^ TypeJSON
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeLONG [
 	^ TypeLONG
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeLONGBLOB [
 	^ TypeLONGBLOB
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeLONGLONG [
 	^ TypeLONGLONG
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeMEDIUMBLOB [
 	^ TypeMEDIUMBLOB
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeNEWDATE [
 	^ TypeNEWDATE
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeNEWDECIMAL [
 	^ TypeNEWDECIMAL
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeNULL [
 	^ TypeNULL
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeSET [
 	^ TypeSET
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeSHORT [
 	^ TypeSHORT
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeSTRING [
 	^ TypeSTRING
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeTIME [
 	^ TypeTIME
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeTIMESTAMP [
 	^ TypeTIMESTAMP
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeTINY [
 	^ TypeTINY
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeTINYBLOB [
 	^ TypeTINYBLOB
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeVARCHAR [
 	^ TypeVARCHAR
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeVARSTRING [
 	^ TypeVARSTRING
 	
 ]
 
-{ #category : #'accessing - types' }
+{ #category : 'accessing - types' }
 MySQLTypes class >> typeYEAR [
 	^ TypeYEAR
 	

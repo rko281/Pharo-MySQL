@@ -2,8 +2,8 @@
 MySQL command to change user
 "
 Class {
-	#name : #MySQLCommandChangeUser,
-	#superclass : #MySQLCommandBase,
+	#name : 'MySQLCommandChangeUser',
+	#superclass : 'MySQLCommandBase',
 	#instVars : [
 		'user',
 		'password',
@@ -12,15 +12,17 @@ Class {
 		'scrambleBuff',
 		'scrambledPassword'
 	],
-	#category : #'MySQL-Core-Command'
+	#category : 'MySQL-Core-Command',
+	#package : 'MySQL-Core',
+	#tag : 'Command'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandChangeUser >> charset: cset [ 
 	charset := cset
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandChangeUser >> commandArg [
 	| buffStream |
 	buffStream := WriteStream on: ByteArray new.
@@ -40,22 +42,22 @@ MySQLCommandChangeUser >> commandArg [
 	^ buffStream contents
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandChangeUser >> commandCode [
 	^ ComChangeUser 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandChangeUser >> database: dbName [
 	database := dbName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandChangeUser >> password: pwd [
 	password := pwd
 ]
 
-{ #category : #operating }
+{ #category : 'operating' }
 MySQLCommandChangeUser >> readResponse [
 	| pkt |
 
@@ -76,19 +78,19 @@ MySQLCommandChangeUser >> readResponse [
 	
 ]
 
-{ #category : #scrambling }
+{ #category : 'scrambling' }
 MySQLCommandChangeUser >> scrambleBuff: seed [
 	scrambleBuff := seed
 	
 ]
 
-{ #category : #scrambling }
+{ #category : 'scrambling' }
 MySQLCommandChangeUser >> scrambledPassword: pwd [
 	scrambledPassword := pwd
 	
 ]
 
-{ #category : #scrambling }
+{ #category : 'scrambling' }
 MySQLCommandChangeUser >> send323Scramble [
 	| scrmblPkt |
 	scrmblPkt := MySQL323Scramble new.
@@ -97,7 +99,7 @@ MySQLCommandChangeUser >> send323Scramble [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandChangeUser >> user: userName [
 	user := userName
 ]

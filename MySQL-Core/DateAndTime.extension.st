@@ -1,6 +1,6 @@
-Extension { #name : #DateAndTime }
+Extension { #name : 'DateAndTime' }
 
-{ #category : #'*MySQL-Core' }
+{ #category : '*MySQL-Core' }
 DateAndTime >> asISOString [
 	^ String streamContents: [ :aStream |
 		self printYMDOn: aStream.

@@ -2,22 +2,24 @@
 MySQL quit command
 "
 Class {
-	#name : #MySQLCommandQuit,
-	#superclass : #MySQLCommandBase,
-	#category : #'MySQL-Core-Command'
+	#name : 'MySQLCommandQuit',
+	#superclass : 'MySQLCommandBase',
+	#category : 'MySQL-Core-Command',
+	#package : 'MySQL-Core',
+	#tag : 'Command'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandQuit >> commandArg [
 	^ nil
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandQuit >> commandCode [
 	^ ComQuit 
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandQuit >> readResponse [
 	^ nil
 		

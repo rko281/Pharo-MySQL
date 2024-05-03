@@ -2,15 +2,17 @@
 MySQL reset statement command
 "
 Class {
-	#name : #MySQLCommandResetStatement,
-	#superclass : #MySQLCommandBase,
+	#name : 'MySQLCommandResetStatement',
+	#superclass : 'MySQLCommandBase',
 	#instVars : [
 		'statementId'
 	],
-	#category : #'MySQL-Core-Command'
+	#category : 'MySQL-Core-Command',
+	#package : 'MySQL-Core',
+	#tag : 'Command'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandResetStatement >> commandArg [
 	ByteArray
 		streamContents: [ :strm | 
@@ -22,14 +24,14 @@ MySQLCommandResetStatement >> commandArg [
 			^ strm contents ]
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandResetStatement >> commandCode [
 	^ ComStmtReset 
 	
 
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandResetStatement >> readResponse [
 	| pkt |
 
@@ -40,7 +42,7 @@ MySQLCommandResetStatement >> readResponse [
 		
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandResetStatement >> statementId: idValue [ "4 byte integer"
 	statementId := idValue
 	

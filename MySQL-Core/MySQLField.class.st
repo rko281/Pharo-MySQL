@@ -2,8 +2,8 @@
 Field packet for MySQL
 "
 Class {
-	#name : #MySQLField,
-	#superclass : #MySQLPacket,
+	#name : 'MySQLField',
+	#superclass : 'MySQLPacket',
 	#instVars : [
 		'catalog',
 		'db',
@@ -32,10 +32,12 @@ Class {
 		'UnsignedFlag',
 		'ZeroFillFlag'
 	],
-	#category : #'MySQL-Core-Packet'
+	#category : 'MySQL-Core-Packet',
+	#package : 'MySQL-Core',
+	#tag : 'Packet'
 }
 
-{ #category : #'private - initialization' }
+{ #category : 'private - initialization' }
 MySQLField class >> initBitMasksForFlags [
 	NotNullFlag := 16r0001.
 	PrimaryKeyFlag := 16r0002.
@@ -54,70 +56,60 @@ MySQLField class >> initBitMasksForFlags [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MySQLField class >> initialize [
 	"self initialize"
-	self initBitMasksForFlags.
-	self initializeTypeConverters.
+	self initBitMasksForFlags
 ]
 
-{ #category : #initialization }
-MySQLField class >> initializeTypeConverters [
-	TypeConverters ifNil: [ 
-		TypeConverters := Dictionary new. 
-		
-		
-		]
-]
-
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLField >> db [
 	^ db
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLField >> decimals [
 	^ decimals 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLField >> isAutoIncrement [
 	^ (flags bitAnd: AutoIncrFlag) = AutoIncrFlag   
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLField >> isNullable [
 	^ (flags bitAnd: NotNullFlag) ~= NotNullFlag  
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLField >> isPrimaryKey [
 	^ (flags bitAnd: PrimaryKeyFlag) = PrimaryKeyFlag  
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLField >> isUnsigned [
 	^ (flags bitAnd: UnsignedFlag) = UnsignedFlag 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLField >> length [
 	^ length 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLField >> name [
 	^ name
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLField >> parse [
 	catalog := (self decodeLcsFrom: inStream) asString.
 	db := (self decodeLcsFrom: inStream) asString.
@@ -138,7 +130,7 @@ MySQLField >> parse [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLField >> printOn: aStream [
 	super printOn: aStream.
 	aStream 
@@ -149,22 +141,14 @@ MySQLField >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLField >> table [
 	^ table
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLField >> type [
 	^ type
 	
-]
-
-{ #category : #'as yet unclassified' }
-MySQLField >> typedValueFrom: aString [
-	^(TypeConverters 
-		at: self type 
-		ifAbsent: [ self error: ('No Type Converter Registered For Type: ', (self type asString)) ])
-			value: aString
 ]

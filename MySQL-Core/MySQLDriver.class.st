@@ -2,23 +2,25 @@
 Driver class for MySQL
 "
 Class {
-	#name : #MySQLDriver,
-	#superclass : #Object,
+	#name : 'MySQLDriver',
+	#superclass : 'Object',
 	#instVars : [
 		'netSession',
 		'handshakeInfo'
 	],
-	#category : #'MySQL-Core-Driver'
+	#category : 'MySQL-Core-Driver',
+	#package : 'MySQL-Core',
+	#tag : 'Driver'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLDriver >> assertConnection [
 	self connected ifFalse: [^ MySQLNoConnectionError signal: 'Driver is not connected'].
 	
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriver >> changeUser: connSpec [ 
 	| com scrmbl |
 	self assertConnection.
@@ -40,7 +42,7 @@ MySQLDriver >> changeUser: connSpec [
 	^ com execute
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriver >> connect: connSpec [ 
 	| handshake resp |
 	
@@ -69,13 +71,13 @@ MySQLDriver >> connect: connSpec [
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLDriver >> connected [
 	^ netSession isNil not and: [netSession connected]
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriver >> disconnect [
 	self assertConnection.
 	(MySQLCommandQuit  onSession: netSession) execute.
@@ -83,34 +85,34 @@ MySQLDriver >> disconnect [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLDriver >> errorFromResponse: resp [
 	^ MySQLError from: resp data
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLDriver >> handshakeInfo [
 	^ handshakeInfo 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLDriver >> keepHandshakeInfo: handshake [
 	handshakeInfo := handshake
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriver >> netSession [
 	^ netSession
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLDriver >> okayFromResponse: resp [
 	^ MySQLOkay from: resp data
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLDriver >> peekResponse [
 	| buffer resp |
 	
@@ -120,13 +122,13 @@ MySQLDriver >> peekResponse [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriver >> ping [
 	self assertConnection.
 	^ (MySQLCommandPing onSession: netSession) execute
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriver >> prepare: queryString [
 	| prepStmt prepResp |
 
@@ -139,7 +141,7 @@ MySQLDriver >> prepare: queryString [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriver >> query: queryString [
 	| qry results |
 
@@ -152,7 +154,7 @@ MySQLDriver >> query: queryString [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLDriver >> readHandshake [
 
 	| buffer handshake |
@@ -163,7 +165,7 @@ MySQLDriver >> readHandshake [
 	^handshake 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLDriver >> readResponse [
 	| buffer resp |
 	
@@ -172,7 +174,7 @@ MySQLDriver >> readResponse [
 	^ resp
 ]
 
-{ #category : #scrambling }
+{ #category : 'scrambling' }
 MySQLDriver >> send323Scramble: seed password: password [
 	| scrmblPkt |
 	scrmblPkt := MySQL323Scramble new.
@@ -181,7 +183,7 @@ MySQLDriver >> send323Scramble: seed password: password [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLDriver >> writeAuthForHandshake: handshake onConnection: connSpec [
 
 	| auth |
@@ -202,7 +204,7 @@ MySQLDriver >> writeAuthForHandshake: handshake onConnection: connSpec [
 	self writePacket: auth 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLDriver >> writePacket: packet [
 	| buffer |
 	

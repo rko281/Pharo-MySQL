@@ -2,18 +2,20 @@
 MySQL fetch command
 "
 Class {
-	#name : #MySQLCommandFetch,
-	#superclass : #MySQLCommandBase,
+	#name : 'MySQLCommandFetch',
+	#superclass : 'MySQLCommandBase',
 	#instVars : [
 		'stmtId',
 		'numRows',
 		'mapResultsToNativeTypes',
 		'resultSetContext'
 	],
-	#category : #'MySQL-Core-Command'
+	#category : 'MySQL-Core-Command',
+	#package : 'MySQL-Core',
+	#tag : 'Command'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandFetch >> commandArg [
 	ByteArray
 		streamContents: [ :strm | 
@@ -29,44 +31,44 @@ MySQLCommandFetch >> commandArg [
 			^ strm contents ]
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandFetch >> commandCode [
 	^ ComStmtFetch 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandFetch >> gotEof [
 	^ (MySQLPacket from: session peek) isEof 
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MySQLCommandFetch >> initialize [
 	super initialize.
 	mapResultsToNativeTypes := true
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandFetch >> mapResultsToNativeTypes: aBoolean [
 	mapResultsToNativeTypes := aBoolean
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandFetch >> numRows: count [
 	numRows := count
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandFetch >> readEof [
 	^ MySQLEof from: session read
 
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandFetch >> readOneRow: fields [ 
 	| row |
 	row := mapResultsToNativeTypes 
@@ -77,7 +79,7 @@ MySQLCommandFetch >> readOneRow: fields [
 	^ row
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandFetch >> readResponse [
 	| resp |
 	resp := self readResult.
@@ -85,7 +87,7 @@ MySQLCommandFetch >> readResponse [
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandFetch >> readResult [
 	| pkt fieldsEof rows fields rowsEof |
 	pkt := MySQLPacket from: session peek.
@@ -105,7 +107,7 @@ MySQLCommandFetch >> readResult [
 		
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLCommandFetch >> readRowData: fields [ 
 	| respRows row |
 	respRows := OrderedCollection new.
@@ -119,13 +121,13 @@ MySQLCommandFetch >> readRowData: fields [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandFetch >> resultSetContext: partialResultSet [
 	resultSetContext := partialResultSet 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandFetch >> statementId: id [
 	stmtId := id
 	

@@ -2,8 +2,8 @@
 Prepare response packet for MySQL
 "
 Class {
-	#name : #MySQLPrepareResponse,
-	#superclass : #MySQLComplexResult,
+	#name : 'MySQLPrepareResponse',
+	#superclass : 'MySQLComplexResult',
 	#instVars : [
 		'prepareOkay',
 		'paramDescriptors',
@@ -11,65 +11,67 @@ Class {
 		'columnDescriptors',
 		'columnEof'
 	],
-	#category : #'MySQL-Core-Packet-Results'
+	#category : 'MySQL-Core-Packet-Results',
+	#package : 'MySQL-Core',
+	#tag : 'Packet-Results'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareResponse >> columnDescriptors [
 	^ columnDescriptors
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareResponse >> columnDescriptors: fields [
 	columnDescriptors := fields 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareResponse >> columnEof: anEof [
 	columnEof := anEof
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLPrepareResponse >> isOkay [
 	^ prepareOkay isOkay 
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLPrepareResponse >> isPrepareResponse [
 	^ true
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareResponse >> paramDescriptors [
 	^ paramDescriptors
 	 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareResponse >> paramDescriptors: fields [
 	paramDescriptors := fields 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareResponse >> paramEof: anEof [
 	paramEof := anEof 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareResponse >> prepareOkay [
 	^ prepareOkay
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareResponse >> prepareOkay: prepOkay [
 	prepareOkay := prepOkay
 	

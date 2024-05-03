@@ -2,8 +2,8 @@
 MySQL Error packet
 "
 Class {
-	#name : #MySQLError,
-	#superclass : #MySQLResult,
+	#name : 'MySQLError',
+	#superclass : 'MySQLResult',
 	#instVars : [
 		'fieldCount',
 		'errNo',
@@ -11,25 +11,27 @@ Class {
 		'sqlState',
 		'message'
 	],
-	#category : #'MySQL-Core-Packet-Results'
+	#category : 'MySQL-Core-Packet-Results',
+	#package : 'MySQL-Core',
+	#tag : 'Packet-Results'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLError >> errNo [
 	^ errNo 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLError >> isError [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLError >> message [
 	^ message 
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLError >> parse [
 	fieldCount := inStream next. "always 0xFF"
 	errNo := inStream next + (inStream next bitShift: 8).	
@@ -39,7 +41,7 @@ MySQLError >> parse [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLError >> sqlState [
 	^ sqlState 
 ]

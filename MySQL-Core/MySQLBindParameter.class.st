@@ -2,8 +2,8 @@
 Database bind parameter for MySQL
 "
 Class {
-	#name : #MySQLBindParameter,
-	#superclass : #Object,
+	#name : 'MySQLBindParameter',
+	#superclass : 'Object',
 	#instVars : [
 		'paramValue',
 		'paramType',
@@ -12,10 +12,12 @@ Class {
 		'declaredUnsigned',
 		'sentAsLongData'
 	],
-	#category : #'MySQL-Core-Utilities'
+	#category : 'MySQL-Core-Utilities',
+	#package : 'MySQL-Core',
+	#tag : 'Utilities'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLBindParameter class >> listOfSize: count forDescriptors: fields [
 	| params |
 	params := (1 to: count) collect: [:each |  
@@ -26,7 +28,7 @@ MySQLBindParameter class >> listOfSize: count forDescriptors: fields [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MySQLBindParameter class >> withValue: aValue [
 	^ self new
 		bindValue: aValue;
@@ -34,7 +36,7 @@ MySQLBindParameter class >> withValue: aValue [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLBindParameter >> bigIntRange [
 	^ self isDeclaredUnsigned 
 		ifTrue: [16r0000000000000000 to: 16rFFFFFFFFFFFFFFFF] 
@@ -42,7 +44,7 @@ MySQLBindParameter >> bigIntRange [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBindParameter >> bindValue: aValue [ 
 	| boundType |
 	paramValue := aValue.
@@ -54,7 +56,7 @@ MySQLBindParameter >> bindValue: aValue [
 	
 ]
 
-{ #category : #writes }
+{ #category : 'writes' }
 MySQLBindParameter >> dateTimeBytes [
 	| dt year length micros |
 	ByteArray
@@ -96,7 +98,7 @@ MySQLBindParameter >> dateTimeBytes [
 			^ strm contents first: length + 1	"remember to send the length byte itself" ]
 ]
 
-{ #category : #writes }
+{ #category : 'writes' }
 MySQLBindParameter >> decimalBytes [
 	"For scaled decimal"
 	ByteArray streamContents: [:strm |
@@ -104,20 +106,20 @@ MySQLBindParameter >> decimalBytes [
 		^ strm contents]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBindParameter >> declaredUnsigned: aBoolean [
 	declaredUnsigned := aBoolean
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBindParameter >> detectParamSign [
 	"true is unsigned, false if signed"
 	^ (((paramValue isKindOf: Number) or: [paramValue isKindOf: Duration]) and: [paramValue negative]) not
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBindParameter >> detectParamType [
 	"Corresponding database type needs to be inferred from the bound value"
 	paramValue ifNil: [ ^ MySQLTypes typeNULL ].
@@ -155,7 +157,7 @@ MySQLBindParameter >> detectParamType [
 	
 ]
 
-{ #category : #writes }
+{ #category : 'writes' }
 MySQLBindParameter >> doubleBytes [
 	| storable |
 	ByteArray
@@ -175,7 +177,7 @@ MySQLBindParameter >> doubleBytes [
 			^ strm contents ]
 ]
 
-{ #category : #writes }
+{ #category : 'writes' }
 MySQLBindParameter >> floatBytes [
 	| storable |
 	ByteArray
@@ -189,7 +191,7 @@ MySQLBindParameter >> floatBytes [
 			^ strm contents ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 MySQLBindParameter >> initialize [
 	newParamBound := false.
 	paramType := MySQLTypes typeNULL.
@@ -198,7 +200,7 @@ MySQLBindParameter >> initialize [
 	
 ]
 
-{ #category : #writes }
+{ #category : 'writes' }
 MySQLBindParameter >> integerBytes: size [
 	| storable |
 	ByteArray
@@ -208,13 +210,13 @@ MySQLBindParameter >> integerBytes: size [
 			^ strm contents ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLBindParameter >> isDeclaredUnsigned [
 	^ declaredUnsigned  
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLBindParameter >> isLongData [
 	| typeRange |
 	"We also send varchar types as long data"
@@ -224,25 +226,25 @@ MySQLBindParameter >> isLongData [
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLBindParameter >> isNull [
 	^ paramType = MySQLTypes typeNULL
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLBindParameter >> isRebound [
 	^ newParamBound 
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLBindParameter >> isUnsigned [
 	^ unsignedFlag 
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLBindParameter >> longIntRange [
 	^ self isDeclaredUnsigned 
 		ifTrue: [16r00000000 to: 16rFFFFFFFF] 
@@ -250,37 +252,37 @@ MySQLBindParameter >> longIntRange [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBindParameter >> paramType [
 	^ paramType 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBindParameter >> resetReboundFlag [
 	newParamBound := false
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLBindParameter >> sentAsLongData [
 	^ sentAsLongData
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBindParameter >> sentAsLongData: aBoolean [
 	sentAsLongData := aBoolean
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLBindParameter >> smallIntRange [
 	^ self isDeclaredUnsigned ifTrue: [16r0000 to: 16rFFFF] ifFalse: [-16r8000 to: 16r7FFF].
 
 ]
 
-{ #category : #writes }
+{ #category : 'writes' }
 MySQLBindParameter >> storableIntegerValueOfSize: size [ 
 	(paramValue isKindOf: Boolean) ifTrue: [^ paramValue ifTrue: [1] ifFalse: [0]].
 	^ paramValue negative 
@@ -288,7 +290,7 @@ MySQLBindParameter >> storableIntegerValueOfSize: size [
 		ifFalse: [ paramValue ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLBindParameter >> storeBinaryOn: aStream [		
 	paramType 
 	caseOf: {
@@ -309,7 +311,7 @@ MySQLBindParameter >> storeBinaryOn: aStream [
 	
 ]
 
-{ #category : #writes }
+{ #category : 'writes' }
 MySQLBindParameter >> stringOrBlobBytes [		
 	ByteArray streamContents: [:strm |
 		MySQLHelper encodeLcs: self stringOrBlobBytesRaw on: strm.
@@ -317,7 +319,7 @@ MySQLBindParameter >> stringOrBlobBytes [
 	
 ]
 
-{ #category : #writes }
+{ #category : 'writes' }
 MySQLBindParameter >> stringOrBlobBytesRaw [
 	| mappedValue |
 	mappedValue := ((paramValue isKindOf: Character) or: [ paramValue isKindOf: Text ]) 
@@ -326,7 +328,7 @@ MySQLBindParameter >> stringOrBlobBytesRaw [
 	^ mappedValue asByteArray
 ]
 
-{ #category : #writes }
+{ #category : 'writes' }
 MySQLBindParameter >> timeBytes [
 	| dur days length micros |
 	ByteArray
@@ -373,7 +375,7 @@ MySQLBindParameter >> timeBytes [
 			^ strm contents first: length + 1 ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MySQLBindParameter >> tinyIntRange [
 	^ self isDeclaredUnsigned ifTrue: [16r00 to: 16rFF] ifFalse: [-16r80 to: 16r7F].
 

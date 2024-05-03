@@ -2,8 +2,8 @@
 Driver specification
 "
 Class {
-	#name : #MySQLDriverSpec,
-	#superclass : #Object,
+	#name : 'MySQLDriverSpec',
+	#superclass : 'Object',
 	#instVars : [
 		'host',
 		'port',
@@ -12,65 +12,67 @@ Class {
 		'database',
 		'options'
 	],
-	#category : #'MySQL-Core-Driver'
+	#category : 'MySQL-Core-Driver',
+	#package : 'MySQL-Core',
+	#tag : 'Driver'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> database: dbName [
 	database := dbName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> db [
 	^ database
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> db: dbName [
 	database := dbName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> host [
 	^ host
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> host: server [
 	host := server
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> options: driverOptions [
 	options := driverOptions
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> password [
 	^ password
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> password: userPassword [
 	password := userPassword
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> port [
 	^ port ifNil: [ port := 3306 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> port: serverPort [
 	port := serverPort
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> user [
 	^ user
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLDriverSpec >> user: userName [
 	user := userName
 ]

@@ -2,16 +2,18 @@
 Query row data packet for MySQL
 "
 Class {
-	#name : #MySQLQueryRowData,
-	#superclass : #MySQLRowData,
+	#name : 'MySQLQueryRowData',
+	#superclass : 'MySQLRowData',
 	#instVars : [
 		'columns',
 		'fields'
 	],
-	#category : #'MySQL-Core-Packet-RowData'
+	#category : 'MySQL-Core-Packet-RowData',
+	#package : 'MySQL-Core',
+	#tag : 'Packet-RowData'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLQueryRowData >> asDictionary [
 	| pairs |
 	pairs := OrderedCollection new: fields size.
@@ -19,57 +21,57 @@ MySQLQueryRowData >> asDictionary [
 	^pairs asDictionary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLQueryRowData >> at: indx [
 	^ indx isInteger 
 		ifTrue: [self atIndex: indx]
 		ifFalse: [ self atFieldNamed: indx ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLQueryRowData >> atFieldNamed: aName [
 	^ self atIndex: (self indexOfFieldNamed: aName)
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLQueryRowData >> atIndex: indx [
 	^ columns at: indx ifAbsent: [MySQLInvalidRowAccess signal: 'No data at this index']
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLQueryRowData >> columnCount: aCount [
 	columns := Array new: aCount 
 	
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MySQLQueryRowData >> do: aBlock [ 
 	^columns do: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLQueryRowData >> fields [
 	^ fields
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLQueryRowData >> fields: anObject [
 	fields := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLQueryRowData >> indexOfFieldNamed: aName [
 	self fields doWithIndex: [ :f :idx | f name = aName ifTrue: [ ^idx ] ].
 	^0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLQueryRowData >> last [
 	^ columns atIndex: (columns size) 
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLQueryRowData >> parse [
 	| indx value field |
 
@@ -82,7 +84,7 @@ MySQLQueryRowData >> parse [
 	
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLQueryRowData >> readColumnFrom: aStream perDescrption: columnDescr [
 	| string |
 	string := (self decodeLcsFrom: aStream) ifNotNil: [:s | s asString] ifNil: [^nil].

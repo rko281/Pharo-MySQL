@@ -2,27 +2,29 @@
 String row data packet for MySQL
 "
 Class {
-	#name : #MySQLStringRowData,
-	#superclass : #MySQLBinaryRowData,
+	#name : 'MySQLStringRowData',
+	#superclass : 'MySQLBinaryRowData',
 	#instVars : [
 		'columnStrings'
 	],
-	#category : #'MySQL-Core-Packet-RowData'
+	#category : 'MySQL-Core-Packet-RowData',
+	#package : 'MySQL-Core',
+	#tag : 'Packet-RowData'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLStringRowData >> atIndex: indx [
 	^ columnStrings at: indx ifAbsent: [MySQLInvalidRowAccess signal: 'No data at this index']
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLStringRowData >> last [
 	^ self atIndex: (columnStrings size)
 	
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLStringRowData >> parse [
 	super parse.
 	columnStrings := columnValues collect: [:each | 
@@ -34,7 +36,7 @@ MySQLStringRowData >> parse [
 	
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 MySQLStringRowData >> write [
 	self subclassResponsibility 
 ]

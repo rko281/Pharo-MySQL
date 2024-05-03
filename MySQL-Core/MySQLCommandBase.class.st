@@ -2,8 +2,8 @@
 Abstract superclass for all MySQL commands
 "
 Class {
-	#name : #MySQLCommandBase,
-	#superclass : #Object,
+	#name : 'MySQLCommandBase',
+	#superclass : 'Object',
 	#instVars : [
 		'session',
 		'errorDict'
@@ -28,10 +28,12 @@ Class {
 		'ComStmtReset',
 		'ComStmtSendLongData'
 	],
-	#category : #'MySQL-Core-Command'
+	#category : 'MySQL-Core-Command',
+	#package : 'MySQL-Core',
+	#tag : 'Command'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 MySQLCommandBase class >> initialize [
 	"self initialize"
 	
@@ -53,23 +55,23 @@ MySQLCommandBase class >> initialize [
 	ComStmtFetch := 16r1C.
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MySQLCommandBase class >> onSession: ioSession [
 	^ self new session: ioSession
 	
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandBase >> commandArg [
 	self subclassResponsibility 
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandBase >> commandCode [
 	self subclassResponsibility 
 ]
 
-{ #category : #operating }
+{ #category : 'operating' }
 MySQLCommandBase >> execute [
 	| resp cmd |
 	session resetSequence.
@@ -80,12 +82,12 @@ MySQLCommandBase >> execute [
 	^ resp
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MySQLCommandBase >> initialize [
 	errorDict := Dictionary new
 ]
 
-{ #category : #operating }
+{ #category : 'operating' }
 MySQLCommandBase >> prepare [
 	| cmd |
 	cmd := MySQLCommand new.
@@ -93,7 +95,7 @@ MySQLCommandBase >> prepare [
 	^ cmd
 ]
 
-{ #category : #operating }
+{ #category : 'operating' }
 MySQLCommandBase >> readResponse [
 	| resp |
 
@@ -104,7 +106,7 @@ MySQLCommandBase >> readResponse [
 	^ resp "Response type unknown at this point"
 ]
 
-{ #category : #operating }
+{ #category : 'operating' }
 MySQLCommandBase >> send: cmd [
 	| buffer |
 
@@ -113,12 +115,12 @@ MySQLCommandBase >> send: cmd [
 
 ]
 
-{ #category : #operating }
+{ #category : 'operating' }
 MySQLCommandBase >> session: ioSession [
 	session := ioSession
 ]
 
-{ #category : #operating }
+{ #category : 'operating' }
 MySQLCommandBase >> writePacket: packet [
 	| buffer |
 	

@@ -1,1 +1,1 @@
-Package { #name : #'MySQL-Core' }
+Package { #name : 'MySQL-Core' }

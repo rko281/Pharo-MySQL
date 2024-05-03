@@ -2,46 +2,48 @@
 A MySQL Network session
 "
 Class {
-	#name : #MySQLNetworkSession,
-	#superclass : #Object,
+	#name : 'MySQLNetworkSession',
+	#superclass : 'Object',
 	#instVars : [
 		'theStream',
 		'nextPacketNumber',
 		'peekData'
 	],
-	#category : #'MySQL-Core-Network'
+	#category : 'MySQL-Core-Network',
+	#package : 'MySQL-Core',
+	#tag : 'Network'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLNetworkSession >> connected [
 	^ theStream ifNil: [false] ifNotNil: [theStream isConnected] 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkSession >> disconnect [
 	theStream isConnected ifTrue: [theStream close] .
 
 ]
 
-{ #category : #'sequence numbering' }
+{ #category : 'sequence numbering' }
 MySQLNetworkSession >> getSequence [
 	^ nextPacketNumber 
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 MySQLNetworkSession >> initialize [
 	self resetSequence.
 
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLNetworkSession >> peek [
 	"Look ahead; don't remove the packet until next read"
 	peekData ifNil: [peekData := self readPacketData].
 	^ peekData
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLNetworkSession >> read [
 	| data |
 	"Return packet from look ahead buffer if any. Clear look ahead buffer"
@@ -50,7 +52,7 @@ MySQLNetworkSession >> read [
 	
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLNetworkSession >> readNetPacket [
 	| pkt |
 	pkt := MySQLNetworkPacket new.
@@ -59,7 +61,7 @@ MySQLNetworkSession >> readNetPacket [
 	^ pkt
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLNetworkSession >> readPacketData [
 	"Read all packets until there is no more packets of data."
 	| dataPackets pkt totalSize buffer ii |
@@ -84,28 +86,28 @@ MySQLNetworkSession >> readPacketData [
 			result]
 ]
 
-{ #category : #'sequence numbering' }
+{ #category : 'sequence numbering' }
 MySQLNetworkSession >> resetSequence [
 	nextPacketNumber := 0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkSession >> stream: aStream [
 	theStream := aStream
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkSession >> timeout [
 	^theStream timeout
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkSession >> timeout: seconds [ 
 	theStream timeout: seconds
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLNetworkSession >> toHost: host andPort: port [ 
 	| aStream |
 	self resetSequence.
@@ -122,12 +124,12 @@ MySQLNetworkSession >> toHost: host andPort: port [
 		do: [:ex | MySQLNameLookupFailure signal: ex messageText] 
 ]
 
-{ #category : #'sequence numbering' }
+{ #category : 'sequence numbering' }
 MySQLNetworkSession >> updateSequence [
 	nextPacketNumber := (nextPacketNumber + 1) bitAnd: 255
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 MySQLNetworkSession >> validatePacket: pkt [
 	"Validate a network packet unit. Currently we validate the sequence number."
 	"Update sequence if validation passes"
@@ -137,25 +139,25 @@ MySQLNetworkSession >> validatePacket: pkt [
 	
 ]
 
-{ #category : #'sequence numbering' }
+{ #category : 'sequence numbering' }
 MySQLNetworkSession >> validateSequence: pktNumber [ 
 	^ pktNumber = nextPacketNumber
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 MySQLNetworkSession >> write: data [ 
 	self writePacketData: data
 
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 MySQLNetworkSession >> writeNetPacket: pkt [
 	"Write a network packet unit to the underlying stream".
 	pkt writeTo: theStream
 	
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 MySQLNetworkSession >> writePacketData: data [ 
 	| pkt nextPktStart dataLen |
 	

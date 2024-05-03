@@ -2,34 +2,36 @@
 Prepare okay packet for MySQL
 "
 Class {
-	#name : #MySQLPrepareOkay,
-	#superclass : #MySQLPacket,
+	#name : 'MySQLPrepareOkay',
+	#superclass : 'MySQLPacket',
 	#instVars : [
 		'warningCount',
 		'numColumns',
 		'numParams',
 		'stmtId'
 	],
-	#category : #'MySQL-Core-Packet'
+	#category : 'MySQL-Core-Packet',
+	#package : 'MySQL-Core',
+	#tag : 'Packet'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 MySQLPrepareOkay >> isOkay [
 	^ true
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareOkay >> numColumns [
 	^ numColumns
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareOkay >> numParams [
 	^ numParams
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 MySQLPrepareOkay >> parse [ 
 	inStream next.	"always 0, marker for oaky pakcet"
 	stmtId := inStream next + (inStream next bitShift: 8) + 
@@ -41,12 +43,12 @@ MySQLPrepareOkay >> parse [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareOkay >> stmtHandlerId [
 	^ stmtId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLPrepareOkay >> warningCount [
 	^ warningCount
 	

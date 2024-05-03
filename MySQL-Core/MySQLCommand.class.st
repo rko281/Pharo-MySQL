@@ -2,23 +2,25 @@
 Command packet for MySQL
 "
 Class {
-	#name : #MySQLCommand,
-	#superclass : #MySQLPacket,
+	#name : 'MySQLCommand',
+	#superclass : 'MySQLPacket',
 	#instVars : [
 		'command',
 		'arg'
 	],
-	#category : #'MySQL-Core-Packet'
+	#category : 'MySQL-Core-Packet',
+	#package : 'MySQL-Core',
+	#tag : 'Packet'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommand >> command: cmd arg: text [
 	command := cmd.
 	arg := text.
 	
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 MySQLCommand >> write [
 	| buffStream |
 	buffStream := WriteStream on: ByteArray new.

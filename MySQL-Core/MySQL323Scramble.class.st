@@ -2,28 +2,30 @@
 323 scramble packet for MySQL
 "
 Class {
-	#name : #MySQL323Scramble,
-	#superclass : #MySQLPacket,
+	#name : 'MySQL323Scramble',
+	#superclass : 'MySQLPacket',
 	#instVars : [
 		'scrambleBuff',
 		'password'
 	],
-	#category : #'MySQL-Core-Packet'
+	#category : 'MySQL-Core-Packet',
+	#package : 'MySQL-Core',
+	#tag : 'Packet'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQL323Scramble >> password: pwd [
 	password := pwd
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQL323Scramble >> scrambleBuff: scramble [
 	scrambleBuff := scramble 
 	
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 MySQL323Scramble >> write [
 	| scrmbl buffStream |
 	buffStream := WriteStream on: (ByteArray new: 256).

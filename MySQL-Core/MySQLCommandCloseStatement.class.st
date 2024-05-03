@@ -2,15 +2,17 @@
 MySQL command to close statement
 "
 Class {
-	#name : #MySQLCommandCloseStatement,
-	#superclass : #MySQLCommandBase,
+	#name : 'MySQLCommandCloseStatement',
+	#superclass : 'MySQLCommandBase',
 	#instVars : [
 		'statementId'
 	],
-	#category : #'MySQL-Core-Command'
+	#category : 'MySQL-Core-Command',
+	#package : 'MySQL-Core',
+	#tag : 'Command'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandCloseStatement >> commandArg [
 	ByteArray
 		streamContents: [ :strm | 
@@ -22,20 +24,20 @@ MySQLCommandCloseStatement >> commandArg [
 			^ strm contents ]
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MySQLCommandCloseStatement >> commandCode [
 	^ ComStmtClose
 	
 
 ]
 
-{ #category : #operating }
+{ #category : 'operating' }
 MySQLCommandCloseStatement >> readResponse [
 	^ nil
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MySQLCommandCloseStatement >> statementId: idValue [ 
 	"4 byte integer"
 	statementId := idValue
